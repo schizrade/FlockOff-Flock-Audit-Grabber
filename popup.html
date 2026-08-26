@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<!--
+  FlockOff CSV Grabber — Popup markup.
+
+  SPDX-License-Identifier: CC0-1.0
+
+  This work is Public Domain and is not subject to
+  copyright protection in the United States (17 U.S.C. 105). To the extent
+  any rights exist outside the United States, they are waived worldwide
+  under the Creative Commons CC0 1.0 Universal Public Domain Dedication.
+
+  Anyone may use, copy, modify, and redistribute this file, for any purpose,
+  commercial or not, without permission or fee. It comes with no warranty of
+  any kind. Credit is welcome but not required. See the LICENSE file.
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>FlockOff CSV Grabber</title>
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <header class="bar">
+      <div class="mark">
+        <span class="dot" id="statusDot"></span>
+        <span class="wordmark">FlockOff CSV Grabber</span>
+      </div>
+      <div class="bar-actions">
+        <button class="ghost" id="openLibrary" type="button">Library</button>
+        <button class="ghost" id="toggleView" type="button">Portals</button>
+      </div>
+    </header>
+
+    <!-- Setup -->
+    <section id="setup">
+      <label class="field">
+        <span class="label">Portal URLs<em>one per line</em></span>
+        <textarea id="urls" spellcheck="false" placeholder="https://transparency.flocksafety.com/agency-name&#10;&#10;Paste them here, or drop a .txt file on this box."></textarea>
+      </label>
+
+      <label class="ghost file-btn" for="fileInput" tabindex="0" role="button">Upload URL list (.txt)</label>
+      <input type="file" id="fileInput" accept=".txt,.csv,.json,text/plain" multiple hidden />
+
+      <div class="row">
+        <button class="ghost small" id="clearList" type="button">Clear</button>
+        <span class="count" id="urlCount">0 portals</span>
+      </div>
+      <p class="import-note" id="importNote" hidden></p>
+
+      <div class="opts">
+        <label class="check"><input type="checkbox" id="saveIndividual" checked /> Save each file separately</label>
+        <label class="check"><input type="checkbox" id="mergeAtEnd" checked /> Merge into one file per dataset</label>
+        <label class="num">Wait per portal
+          <input type="number" id="itemTimeout" min="1" max="30" step="1" value="6" /> min
+        </label>
+        <label class="num">Pause between portals
+          <input type="number" id="between" min="0" max="60" step="1" value="4" /> sec
+        </label>
+      </div>
+
+      <button class="primary" id="start" type="button">Start run</button>
+      <p class="hint">
+        Chrome opens one tab and works down the list. If a security check appears, solve it in that tab — the run picks up on its own.
+        <a href="#" id="openInTab">Open this in a tab</a> if the file picker closes the popup before you choose a file.
+      </p>
+    </section>
+
+    <!-- Run -->
+    <section id="run" hidden>
+      <div class="progress"><div class="progress-fill" id="progressFill"></div></div>
+      <p class="tally" id="tally">Nothing collected yet</p>
+
+      <div class="banner" id="banner" hidden>
+        <span id="bannerText">Security check waiting</span>
+        <button class="ghost small" id="focusTab" type="button">Open the tab</button>
+      </div>
+
+      <ol class="ledger" id="ledger"></ol>
+
+      <div class="controls">
+        <button class="ghost small" id="pause" type="button">Pause</button>
+        <button class="ghost small" id="skip" type="button">Skip this one</button>
+        <button class="ghost small danger" id="stop" type="button">Stop</button>
+      </div>
+
+      <p class="done-note" id="doneNote" hidden></p>
+
+      <div class="controls">
+        <button class="primary small" id="export" type="button">Save merged CSV</button>
+        <button class="ghost small" id="newRun" type="button">New run</button>
+      </div>
+      <div class="controls">
+        <button class="ghost small" id="clear" type="button">Clear collected data</button>
+      </div>
+
+      <details class="logbox">
+        <summary>Activity</summary>
+        <pre id="log"></pre>
+      </details>
+    </section>
+
+    <script src="popup.js"></script>
+  </body>
+</html>

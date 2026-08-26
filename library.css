@@ -1,0 +1,334 @@
+/*
+ * FlockOff CSV Grabber — Data library page styling.
+ *
+ * SPDX-License-Identifier: CC0-1.0
+ *
+ * This work is Public Domain and is not subject to
+ * copyright protection in the United States (17 U.S.C. 105). To the extent
+ * any rights exist outside the United States, they are waived worldwide
+ * under the Creative Commons CC0 1.0 Universal Public Domain Dedication.
+ *
+ * Anyone may use, copy, modify, and redistribute this file, for any purpose,
+ * commercial or not, without permission or fee. It comes with no warranty of
+ * any kind. Credit is welcome but not required. See the LICENSE file.
+ */
+/* Full-tab companion to the popup, so it carries the same palette and the same
+   uppercase mono wordmark. The extra room buys a real type scale and a grid. */
+
+:root {
+  --ink: #10151b;
+  --panel: #171e27;
+  --panel-hi: #1d2632;
+  --line: #263140;
+  --line-soft: #1e2734;
+  --text: #e2e8f0;
+  --muted: #7e8c9e;
+  --accent: #4c9bd1;
+  --signal: #e5a73c;
+  --ok: #59b98a;
+  --bad: #d5645f;
+  --mono: ui-monospace, "SFMono-Regular", "Cascadia Mono", "Consolas", monospace;
+  --sans: system-ui, "Segoe UI", Roboto, sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+/* A declared display value beats the user-agent rule for [hidden], which turns
+   a hidden overlay into an invisible click trap. */
+[hidden] { display: none !important; }
+
+body {
+  margin: 0;
+  padding: 34px 24px 96px;
+  background: var(--ink);
+  color: var(--text);
+  font: 13px/1.5 var(--sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+main, .masthead, .bar, .status { max-width: 1060px; margin-inline: auto; }
+
+/* header ------------------------------------------------------------------ */
+
+.masthead {
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 16px;
+  margin-bottom: 18px;
+}
+
+h1 {
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 0 0 10px;
+}
+
+h1::before {
+  content: "";
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--accent);
+  margin-right: 9px;
+  vertical-align: 1px;
+}
+
+.ledger {
+  margin: 0;
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.ledger b { color: var(--text); font-weight: 600; }
+
+h2 {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text);
+  margin: 30px 0 6px;
+}
+
+.lede { margin: 0 0 12px; color: var(--muted); max-width: 66ch; }
+.fine { color: var(--muted); font-size: 12px; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+
+/* buttons ----------------------------------------------------------------- */
+
+.bar { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 14px auto; }
+.bar-gap { flex: 1 1 20px; }
+
+button {
+  font: 12px/1 var(--sans);
+  padding: 9px 14px;
+  color: var(--text);
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover { background: var(--panel-hi); border-color: var(--accent); }
+button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+button:disabled { opacity: 0.4; cursor: default; background: var(--panel); border-color: var(--line); }
+button:disabled:hover { border-color: var(--line); }
+
+button.primary { background: var(--accent); border-color: var(--accent); color: #08121a; font-weight: 600; }
+button.primary:hover { filter: brightness(1.1); background: var(--accent); }
+button.destructive { border-color: var(--bad); color: var(--bad); }
+button.link {
+  border-color: transparent; background: none; padding: 4px 6px;
+  color: var(--muted); text-decoration: underline; text-underline-offset: 3px;
+}
+button.link:hover { color: var(--bad); background: none; border-color: transparent; }
+
+.status {
+  min-height: 18px;
+  margin: 2px auto 0;
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--accent);
+}
+.status[data-tone="warn"] { color: var(--signal); }
+
+/* coverage board ---------------------------------------------------------- */
+
+.board {
+  display: grid;
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  overflow: hidden auto;
+  max-width: 100%;
+}
+
+.board > * { background: var(--panel); padding: 9px 11px; min-width: 0; }
+
+.board .head {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  align-self: end;
+  background: var(--ink);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.board .agency {
+  font-family: var(--mono);
+  font-size: 12px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cell { position: relative; }
+
+.cell .n {
+  display: block;
+  font-family: var(--mono);
+  font-variant-numeric: tabular-nums;
+  font-size: 12px;
+  text-align: right;
+}
+
+/* The fill is the signature: proportional to the largest cell in the board and
+   anchored to the same edge as the digits, so a thin bar beside a fat one is a
+   real comparison rather than decoration. */
+.cell .fill {
+  display: block;
+  height: 3px;
+  margin-top: 6px;
+  margin-left: auto;
+  border-radius: 2px;
+  background: var(--accent);
+  min-width: 2px;
+}
+
+/* Gaps are drawn, not left blank. An absence you can act on should look like
+   something, not like nothing. */
+.cell.gap { background: var(--ink); }
+.cell.gap .n { color: var(--muted); }
+.cell.gap .fill { background: none; border-top: 1px dashed var(--line); height: 0; }
+.cell .total { color: var(--muted); }
+
+/* tables ------------------------------------------------------------------ */
+
+.grid {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  overflow: hidden;
+  font-size: 12px;
+}
+
+.grid th, .grid td {
+  padding: 9px 11px;
+  text-align: left;
+  border-bottom: 1px solid var(--line-soft);
+  vertical-align: baseline;
+}
+
+.grid thead th {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: 400;
+  background: var(--ink);
+  border-bottom: 1px solid var(--line);
+}
+
+.grid tbody tr:last-child td { border-bottom: 0; }
+.grid tbody tr:hover { background: var(--panel-hi); }
+.grid .num { text-align: right; font-family: var(--mono); font-variant-numeric: tabular-nums; }
+.grid td.name { font-family: var(--mono); color: var(--text); }
+.grid td.when { color: var(--muted); font-family: var(--mono); font-size: 11.5px; }
+.grid td.act { text-align: right; width: 1%; white-space: nowrap; }
+
+/* panels ------------------------------------------------------------------ */
+
+.panel {
+  margin-top: 30px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 0 16px;
+}
+
+.panel summary {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text);
+  padding: 14px 0;
+  cursor: pointer;
+}
+
+.panel summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.panel[open] summary { border-bottom: 1px solid var(--line-soft); margin-bottom: 14px; }
+.panel > *:last-child { margin-bottom: 16px; }
+.panel.danger summary { color: var(--bad); }
+.warn { color: var(--signal); max-width: 66ch; }
+
+.field {
+  display: block;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+
+textarea {
+  width: 100%;
+  font: 12px/1.6 var(--mono);
+  color: var(--text);
+  background: var(--ink);
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  padding: 10px;
+  resize: vertical;
+}
+
+textarea:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+
+/* empty state and drop target --------------------------------------------- */
+
+.empty {
+  border: 1px dashed var(--line);
+  border-radius: 6px;
+  background: var(--panel);
+  padding: 30px 26px;
+  margin-top: 24px;
+}
+
+.empty h2 { margin-top: 0; }
+.empty p { max-width: 62ch; color: var(--muted); }
+
+code {
+  font-family: var(--mono);
+  background: var(--ink);
+  padding: 1px 5px;
+  border-radius: 3px;
+  border: 1px solid var(--line);
+}
+
+.dropzone {
+  position: fixed;
+  inset: 12px;
+  border: 2px dashed var(--accent);
+  border-radius: 8px;
+  background: rgba(16, 21, 27, 0.9);
+  display: grid;
+  place-items: center;
+  font-family: var(--mono);
+  font-size: 13px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  z-index: 10;
+}
+
+@media (max-width: 640px) {
+  body { padding: 22px 14px 72px; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  button { transition: background 90ms linear, border-color 90ms linear; }
+}

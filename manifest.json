@@ -1,0 +1,50 @@
+{
+  "manifest_version": 3,
+  "name": "FlockOff CSV Grabber",
+  "version": "3.1.0",
+  "description": "Collects public audit CSVs from Flock Safety transparency portals and merges them into one file per dataset.",
+  "permissions": [
+    "downloads",
+    "storage",
+    "unlimitedStorage",
+    "tabs",
+    "alarms",
+    "scripting"
+  ],
+  "host_permissions": [
+    "https://transparency.flocksafety.com/*"
+  ],
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "FlockOff CSV Grabber"
+  },
+  "options_page": "library.html",
+  "content_scripts": [
+    {
+      "matches": [
+        "https://transparency.flocksafety.com/*"
+      ],
+      "js": [
+        "inpage.js"
+      ],
+      "run_at": "document_start",
+      "world": "MAIN",
+      "all_frames": false
+    },
+    {
+      "matches": [
+        "https://transparency.flocksafety.com/*"
+      ],
+      "js": [
+        "content.js"
+      ],
+      "run_at": "document_start",
+      "world": "ISOLATED",
+      "all_frames": false
+    }
+  ]
+}

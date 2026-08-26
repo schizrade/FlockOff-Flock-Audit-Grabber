@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<!--
+  FlockOff CSV Grabber — Data library page markup.
+
+  SPDX-License-Identifier: CC0-1.0
+
+  This work is Public Domain and is not subject to
+  copyright protection in the United States (17 U.S.C. 105). To the extent
+  any rights exist outside the United States, they are waived worldwide
+  under the Creative Commons CC0 1.0 Universal Public Domain Dedication.
+
+  Anyone may use, copy, modify, and redistribute this file, for any purpose,
+  commercial or not, without permission or fee. It comes with no warranty of
+  any kind. Credit is welcome but not required. See the LICENSE file.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Flock data library</title>
+<link rel="stylesheet" href="library.css">
+</head>
+<body>
+
+<header class="masthead">
+  <h1>Data library</h1>
+  <p class="ledger" id="tally">Reading the library&hellip;</p>
+</header>
+
+<div class="bar" role="group" aria-label="Library actions">
+  <button id="save-workbook" class="primary">Save workbook</button>
+  <button id="save-csvs">Save CSVs</button>
+  <button id="save-backup">Save backup</button>
+  <span class="bar-gap"></span>
+  <button id="pick-csv">Add CSV files</button>
+  <button id="pick-backup">Restore backup</button>
+  <input type="file" id="file-csv" accept=".csv,.tsv,.txt" multiple hidden>
+  <input type="file" id="file-backup" accept=".jsonl,.json,.ndjson" hidden>
+</div>
+
+<p class="status" id="status" role="status" aria-live="polite"></p>
+
+<main>
+  <section id="empty" class="empty" hidden>
+    <h2>Nothing collected yet</h2>
+    <p>Run the grabber from the toolbar to pull the portals on your list, or drop
+      CSV files you already have anywhere on this page.</p>
+    <p class="fine">Files named <code>agency__dataset.csv</code> are filed
+      automatically. Anything else is filed under its own filename, and you can
+      rename it later.</p>
+  </section>
+
+  <section id="coverage-section" hidden>
+    <h2>Coverage</h2>
+    <p class="lede">One row per agency, one column per dataset. Hollow slots are
+      the gaps &mdash; portals that have never given you that dataset.</p>
+    <div class="board" id="board"></div>
+  </section>
+
+  <section id="datasets-section" hidden>
+    <h2>Datasets</h2>
+    <table class="grid" id="datasets">
+      <thead>
+        <tr>
+          <th scope="col">Dataset</th>
+          <th scope="col" class="num">Rows</th>
+          <th scope="col" class="num">Agencies</th>
+          <th scope="col" class="num">Columns</th>
+          <th scope="col">Last added</th>
+          <th scope="col"><span class="sr">Actions</span></th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </section>
+
+  <section id="runs-section" hidden>
+    <h2>Runs</h2>
+    <table class="grid" id="runs">
+      <thead>
+        <tr>
+          <th scope="col">Started</th>
+          <th scope="col" class="num">Portals</th>
+          <th scope="col" class="num">Rows added</th>
+          <th scope="col" class="num">Already had</th>
+          <th scope="col">Notes</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </section>
+
+  <details class="panel" id="settings">
+    <summary>Duplicate matching</summary>
+    <p class="lede">A row is a duplicate when every column matches a row already
+      in the library. Columns listed here are left out of that comparison, so an
+      export stamp that changes daily doesn&rsquo;t make old rows look new.</p>
+    <p class="warn">Leave a real data column out of the comparison and two rows
+      that differ only in that column will collapse into one. Add only columns
+      that describe the download itself.</p>
+    <label class="field" for="ignore">One column name per line</label>
+    <textarea id="ignore" rows="8" spellcheck="false"></textarea>
+    <div class="bar">
+      <button id="save-ignore" class="primary">Save</button>
+      <button id="reset-ignore">Reset to defaults</button>
+    </div>
+    <p class="fine">Changing this affects rows collected from now on. Rows
+      already in the library keep the fingerprint they were stored under.</p>
+  </details>
+
+  <details class="panel danger" id="danger">
+    <summary>Erase the library</summary>
+    <p class="lede">This deletes every row on this machine. The workbook and
+      backup files you have already saved are untouched.</p>
+    <div class="bar">
+      <button id="erase">Erase everything</button>
+      <span id="erase-confirm" hidden>
+        <button id="erase-yes" class="destructive">Yes, erase it</button>
+        <button id="erase-no">Keep it</button>
+      </span>
+    </div>
+  </details>
+</main>
+
+<div class="dropzone" id="dropzone" hidden><span>Drop CSV files to add them</span></div>
+
+<script src="lib/csv.js"></script>
+<script src="lib/xlsx.js"></script>
+<script src="lib/store.js"></script>
+<script src="library.js"></script>
+</body>
+</html>

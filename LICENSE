@@ -1,0 +1,45 @@
+FlockOff CSV Grabber
+
+PUBLIC DOMAIN
+
+This project is Public Domain. Under 17 U.S.C. 105 it
+is not subject to copyright protection in the United States, and it is released
+into the public domain.
+
+No copyright is claimed. Anyone may use, copy, modify, merge, publish,
+distribute, sublicense, or sell this software, in whole or in part, for any
+purpose, commercial or non-commercial, without permission, fee, or notice.
+
+WORLDWIDE WAIVER
+
+Section 105 addresses United States copyright only. A United States Government
+work may still attract rights in other countries. To close that gap, any and all
+copyright and related or neighboring rights in this work that exist anywhere in
+the world are waived under the Creative Commons CC0 1.0 Universal Public Domain
+Dedication:
+
+    https://creativecommons.org/publicdomain/zero/1.0/
+
+SPDX-License-Identifier: CC0-1.0
+
+NO WARRANTY
+
+This software is provided "as is", without warranty of any kind, express or
+implied, including but not limited to the warranties of merchantability, fitness
+for a particular purpose, and non-infringement. In no event shall the authors or
+copyright holders be liable for any claim, damages, or other liability, whether
+in an action of contract, tort, or otherwise, arising from, out of, or in
+connection with the software or the use or other dealings in the software.
+
+THIRD-PARTY CODE
+
+None. This extension bundles no external libraries, fonts, or images.
+
+
+  ----------------------------------------------------------------------
+  Optional: append the full CC0 1.0 legal text below, so the worldwide
+  waiver travels with the code rather than relying on a link.
+
+      curl https://creativecommons.org/publicdomain/zero/1.0/legalcode.txt \
+        >> LICENSE
+  ----------------------------------------------------------------------
